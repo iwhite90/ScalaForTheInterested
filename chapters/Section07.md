@@ -231,7 +231,7 @@ class MilkCarton(var amountOfMilk: Int) {
 }
 ```
 
-How can we get the `alerter` to be a `ConsolePrinterStub` instead? In fact, we've already learnt the tools we need to do this. We're going to use a combination of *traits* and *constructor parameters* to decide whether we want a `ConsolePrinter` or a `ConsolePrinterStub` at the point we create the `MilkCarton` object. First lets create a trait representing objects that have an `alert` method.
+How can we get the `alerter` to be a `ConsolePrinterStub` instead? In fact, we've already learnt the tools we need to do this. We're going to use a combination of *traits* and *constructor parameters* to decide whether we want a `ConsolePrinter` or a `ConsolePrinterStub` at the point we create the `MilkCarton` object. First let's create a trait representing objects that have an `alert` method.
 
 ```
 trait Alerter {
@@ -407,7 +407,7 @@ You might think this would cause a problem, as there's no method body defined fo
 
 So what this test is doing is creating a mock of the `Alerter`, calling the `alert` method on the mock, then verifying that the `alert` method was called. If you swap the last two lines the test should fail, because you'd be trying to verify that the method has been called before it was actually called.
 
-We're almost there. Lets just add in our `MilkCarton` to the test:
+We're almost there. Let's just add in our `MilkCarton` to the test:
 
 ```
 "Using a mock" should "work" in {
@@ -437,7 +437,7 @@ Mockito has lots of cool features to help you simulate your dependencies and tes
 }
 ```
 
-and being able to specify the behaviour you expect from your mock. As a completely contrived example, lets say we want to test a method that takes a random number generator dependency. If the dependency generates a number below 10, then our method returns the random number times 2. If it generates a number over 10, then it returns the number divided by 2. So our random number generator trait would look like this:
+and being able to specify the behaviour you expect from your mock. As a completely contrived example, let's say we want to test a method that takes a random number generator dependency. If the dependency generates a number below 10, then our method returns the random number times 2. If it generates a number over 10, then it returns the number divided by 2. So our random number generator trait would look like this:
 
 ```
 trait RandomNumberGenerator {

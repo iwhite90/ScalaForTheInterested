@@ -14,7 +14,7 @@ object Player {
 }
 ```
 
-Now lets say we want to create a fantastic game, where the player goes around fighting monsters. I'm going to write a `Monster` object. It will be a bit less powerful than the player, so I'll give it less health and damage. Also, we don't want it to be able to heal. So it looks something like this:
+Now let's say we want to create a fantastic game, where the player goes around fighting monsters. I'm going to write a `Monster` object. It will be a bit less powerful than the player, so I'll give it less health and damage. Also, we don't want it to be able to heal. So it looks something like this:
 
 ```
 object Monster {
@@ -182,7 +182,7 @@ class Monster(damage: Int = 5, var health: Int = 10) {
 }
 ```
 
-And just for the fun of it, lets create something else that we can damage:
+And just for the fun of it, let's create something else that we can damage:
 
 ```
 class WoodenCrate(isBreakable: Boolean = false) {
@@ -283,7 +283,7 @@ Here we've just got the method definition, and not the method body. In other wor
 def attack(x: Attackable) = x.takeDamage(damage)
 ```
 
-Here we're saying that the method should take a method parameter of type `Attackable`. And we know that `Attackable` types will have a `takeDamage` method, so it's safe to call `takeDamage` on the parameter in the method body. Now lets update our three classes so that the computer knows they are `Attackable` types. We do this by **extending the trait**, which just means writing the word "extends" followed by the trait name at the end of the class definition, like so:
+Here we're saying that the method should take a method parameter of type `Attackable`. And we know that `Attackable` types will have a `takeDamage` method, so it's safe to call `takeDamage` on the parameter in the method body. Now let's update our three classes so that the computer knows they are `Attackable` types. We do this by **extending the trait**, which just means writing the word "extends" followed by the trait name at the end of the class definition, like so:
 
 ```
 class Monster(damage: Int = 5, var health: Int = 10) extends Attackable {
@@ -329,7 +329,7 @@ If you think about it, it makes sense. We're allowed to pass both Monsters and W
 
 A bit like how we learned to provide default values for constructor parameters, we can also provide default method bodies in traits. If we provide a default implementation then classes can extend the trait without providing their own implementation, and the default will be used. If they decide to implement the method themselves then the default will be ignored.
 
-We might want some objects in our game to be attackable, but for nothing much to happen if they are attacked. For instance, the player might attack a wall, or a rock. Lets say if any of these type of objects are attacked, it will just print out, "Well, that didn't do much". We'll decide that this is the default behaviour for attackable objects, unless they specify something else should happen. Wel also don't want to have to write `def takeDamage(x: Int) = println("Well, that didn't do much")` in every one of these classes. So this is a great chance to use a default method in a trait. I'm going to write my `Rock` class first:
+We might want some objects in our game to be attackable, but for nothing much to happen if they are attacked. For instance, the player might attack a wall, or a rock. Let's say if any of these type of objects are attacked, it will just print out, "Well, that didn't do much". We'll decide that this is the default behaviour for attackable objects, unless they specify something else should happen. Wel also don't want to have to write `def takeDamage(x: Int) = println("Well, that didn't do much")` in every one of these classes. So this is a great chance to use a default method in a trait. I'm going to write my `Rock` class first:
 
 ```
 class Rock extends Attackable

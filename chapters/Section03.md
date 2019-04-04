@@ -1,7 +1,7 @@
 # Chapter 3
 ## Your first program
 
-If all's gone well you should have IntelliJ installed with the Scala plugin, set the language framework to recongise Scala, and have a JDK. If so, well done! That's all the boring stuff out of the way, and now we're ready to start coding.
+If all's gone well you should have IntelliJ installed with the Scala plugin, set the language framework to recognise Scala, and have a JDK. If so, well done! That's all the boring stuff out of the way, and now we're ready to start coding.
 
 We're going to get going with a really simple program. It won't do very much, other than print out some text, but it's quite an acheivement to actually get something running. I'm going to follow the age old programmer's initiation rite of writing my first program to print out "Hello World!", but feel free to change it to print out whatever you like. In fact, one of the best ways of learning as you follow through these tutorials will be to understand what the code is doing, then play around and try to get it to do something slightly different.
 
