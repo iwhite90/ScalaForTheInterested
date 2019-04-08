@@ -15,7 +15,7 @@ The **Project** tab on the left hand side is like Windows Explorer, or Finder on
 
 You can see that there are two Scala directories, one in blue and the other in green. When I'm talking about files or folders, if there's ambiguity about which one I mean I'll prefix them with enough of the path for it to be clear. So we've got a `src/main/scala` folder and a `src/test/scala` folder. I could also refer to these as `main/scala` and `test/scala` as that's enough to distinguish them.
 
-All the code for our program is going to live in the `main/scala` folder. We're also going to be writing code to test that our program works properly. Can you guess where that is going to go? We want be writing any tests for this first program, but don't worry we'll be getting onto them very soon!
+All the code for our program is going to live in the `main/scala` folder. We're also going to be writing code to test that our program works properly. Can you guess where that is going to go? We won't be writing any tests for this first program, but don't worry we'll be getting to them very soon!
 
 Right click on the `main/scala` folder, and choose **New -> Scala Class** as shown in the picture below. If the **Scala Class** option isn't there, make sure you've got the Scala framework support turned on by right clicking on your project name and selecting **Add framework support**.
 
