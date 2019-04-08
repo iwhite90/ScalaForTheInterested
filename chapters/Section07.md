@@ -504,4 +504,4 @@ We can't use a real random number generator, as we have no way of finding the va
 
 Well done! That was a tough chapter. I know some of these concepts can be a bit mind bending, but if you can basically understand the idea of what's going on here, all it needs is practice for it to become second nature. Testing with stubs and mocks could fill up its own book, so we've really only scratched the surface here, but you've now got a good grounding in the fundamentals. Many people who write code for a living don't know these techniques for writing clear and well tested code, so if you're following along give yourself a big pat on the back!
 
-![Next chapter](Section08.md)
+[Next chapter](Section08.md)
