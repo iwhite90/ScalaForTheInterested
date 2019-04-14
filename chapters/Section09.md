@@ -240,3 +240,129 @@ And `map` isn't the only higher order function defined for Lists. Oh no, there a
   input.filter(x => x.length > 4) shouldBe List[String]("Hello", "reader")
 }
 ```
+
+We're only scratching the surface here. If you want a whole load more information on Lists and the ways you can use them, a quick Google search for "Scala Lists" will get you started down the rabbit hole.
+
+A great feature of these methods are that they don't alter the existing List, but return a new List. This means that we can call another method on the returned List in order to transform the original List in several ways. Let's say we have a List of words, and we'd like to know the total number of letters in the words that start with a letter that comes after "m" in the alphabet. We can start by filtering the List into a new List that only contains the words starting with a letter after "m".
+
+```
+"We" should "be able to find out the number of letters in words starting after m" in {
+  val originalList = List[String]("the", "cow", "jumped", "over", "the", "moon")
+  val filteredList = originalList.filter(word => word > "m")
+
+  filteredList shouldBe List[String]("the", "over", "the", "moon")
+}
+```
+
+Then we can map the words to their lengths:
+
+```
+"We" should "be able to find out the number of letters in words starting after m" in {
+  val originalList = List[String]("the", "cow", "jumped", "over", "the", "moon")
+  val filteredList = originalList.filter(word => word > "m")
+  val mappedList = filteredList.map(word => word.length)
+
+  mappedList shouldBe List[Int](3, 4, 3, 4)
+}
+```
+
+And to finish we just need to sum up the values in the `mappedList`. Remember our `ListOps` class from the last chapter? We had a handy method that does just that.
+
+```
+"We" should "be able to find out the number of letters in words starting after m" in {
+  val originalList = List[String]("the", "cow", "jumped", "over", "the", "moon")
+  val filteredList = originalList.filter(word => word > "m")
+  val mappedList = filteredList.map(word => word.length)
+  val totalWords = ListOps.sumList(mappedList)
+
+  totalWords shouldBe 14
+}
+```
+
+We could have written one big function that takes in the List of words, iterates over the elements looking for words starting after "m", getting the size of the word, and adding it to counter of some sort. But that would be a very specific piece of code that is only good for this one use case. Using smaller functions and composing them together allows them to be used in many different cases. You can think of the big function as a cast iron model of a car, and the smaller functions as Lego bricks that you could use to create a car, but could also create lots of other things as well. This concept is so important to the art of coding that it has its own name - the **Single Responsibilty Principal**. There are nuances to this, but basically you can think of it as keeping your classes, objects, methods and functions small, and focussed on doing just one thing well.
+
+Our test code works, but I feel it's a bit messy. I'd like to **refactor** the test. Refactoring just means changing (hopefully improving) the code, without affecting what the code actually does. In this instance, there are two things we can change to make the code more readable. Firstly, there's actually a method defined on the List class that will sum up the elements in a List, so we can use that instead of our own `sumList` method. And secondly, we don't need all these intermediate `val`s to assign the stages of the transformation to. We can just chain the methods together, like so:
+
+```
+"We" should "be able to find out the number of letters in words starting after m" in {
+  val originalList = List[String]("the", "cow", "jumped", "over", "the", "moon")
+  
+  originalList.filter(word => word > "m").map(word => word.length).sum shouldBe 14
+}
+```
+
+If it's hard to read all on one line, you can split the method calls onto separate lines, like this:
+
+```
+"We" should "be able to find out the number of letters in words starting after m" in {
+  val originalList = List[String]("the", "cow", "jumped", "over", "the", "moon")
+  
+  originalList.filter(word => word > "m")
+              .map(word => word.length)
+              .sum shouldBe 14
+}
+```
+
+That looks much nicer to me.
+
+I just have to say one thing about the `sum` method. If you're eagle eyed, you may have noticed that it doesn't have any parentheses after it. Scala has a rule that if a method doesn't take any parameters and it returns a value, then you shouldn't use empty parentheses when you define or call the method. This is because a method that doesn't take any parameters and returns a value looks just like a variable to the caller of the method, so the caller shouldn't have to distinguish between whether they are calling a method or just referencing the value of a variable. This is what I mean:
+
+```
+object Demo {
+  val x = 10
+  def y() = 15
+  def z = 20
+}
+```
+
+To use these, you would write:
+
+```
+Demo.x // 10
+Demo.y() // 15
+Demo.z // 20
+```
+
+From the user's point of view, they're all doing the same thing: giving us an integer. The user doesn't need to know that `y` and `z` are methods, so writing `z` without parentheses lets the user treat it the same as a variable.
+
+Ok, we've seen some of the higher order methods operating on Lists of strings and integers. Well, they're not restricted to working on these built in types. We can just as easily use them to transform Lists of types that we've created ourselves. Maybe we're writing a game, and have a List to keep track of all the monsters. At some point in the game we want to get rid of all the monsters with low health. Here's a monster:
+
+```
+class Monster(name: String, health: Int)
+```
+
+And an object to handle our monsters:
+
+```
+object MonsterHandler {
+  def cullMonsters(monsters: List[Monster]): List[Monster] = ???
+}
+```
+
+Let's write a test for our `cullMonsters` method:
+
+```
+class MonsterHandlerSpec extends FlatSpec with Matchers {
+
+  "cullMonsters" should "get rid of all monsters with health below 10" in {
+    val originalMonsters = List[Monster](
+	  new Monster("Barry", 20),
+	  new Monster("Helen", 5),
+	  new Monster("Jimmy", 15))
+
+    // Let's check that we just have Barry and Jimmy after culling
+    MonsterHandler.cullMonsters(originalMonsters)
+                  .map(monster => monster.name) shouldBe List[String]("Barry", "Jimmy")
+  }
+}
+```
+
+Have a go at filling in the implementation for the `cullMonsters` method. Here's my solution:
+
+```
+object MonsterHandler {
+  def cullMonsters(monsters: List[Monster]): List[Monster] = {
+    monsters.filter(monster => monster.health > 10)
+  }
+}
+```

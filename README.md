@@ -15,3 +15,5 @@
 >[07 - Dependency Injection, Stubs and Mocks](chapters/Section07.md)
 
 >[08 - Lists and Arrays](chapters/Section08.md)
+
+>[09 - Functions](chapters/Section09.md)

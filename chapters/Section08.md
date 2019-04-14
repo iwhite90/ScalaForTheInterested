@@ -524,3 +524,5 @@ object ArrayOps {
 ```
 
 Finish up by writing a test and implementation for `ArrayOps.sumArray`, then we're done. Awesome job!
+
+[Next chapter](Section09.md)
