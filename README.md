@@ -17,3 +17,5 @@
 >[08 - Lists and Arrays](chapters/Section08.md)
 
 >[09 - Functions](chapters/Section09.md)
+
+>[10 - Input](chapters/Section10.md)

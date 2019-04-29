@@ -696,3 +696,5 @@ class PhoneBook {
 ```
 
 Congratulations! You've learnt a tonne of things in this chapter. We're going to build on everything we've learnt in the next chapter by creating a Top Trumps style card game - plus we'll get to actually take some user input into our programs!
+
+[Next chapter](Section10.md)
