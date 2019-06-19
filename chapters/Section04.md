@@ -17,7 +17,7 @@ object HelloWorld extends App {
 
 There are actually many objects involved in this tiny program. The first is easy to see. It's called `HelloWorld` and you created it by typing the word `object` followed by the name you wanted to give the object, with the body of the object between curly braces. Ignore the `extends App` for a moment. I'll explain it in a second. The object body can contain attributes (describing the characteristics and current state of the object) and behaviour. Our object doesn't have any attributes, but it does have some behaviour that causes "Hello World!" to be printed to the terminal.
 
-But hang on a second! You said there were many objects? Where are the others? Scala comes with loads of its own objects which you'll take advantage of to write your programs. `println` is actually some behaviour that is defined in one of these objects called `Predef`. If you hold **Ctrl** on Windows or **Cmd** on the Mac, and click on the word `println`, IntelliJ will open up the file containing the definition of this behaviour. You'll be in the body of the `Predef` object, and should be looking at the follow code:
+But hang on a second! You said there were many objects. Where are the others? Scala comes with loads of its own objects which you'll take advantage of to write your programs. `println` is actually some behaviour that is defined in one of these objects called `Predef`. If you hold **Ctrl** on Windows or **Cmd** on the Mac, and click on the word `println`, IntelliJ will open up the file containing the definition of this behaviour. You'll be in the body of the `Predef` object, and should be looking at the follow code:
 
 ```
 def println(x: Any) = Console.println(x)
@@ -55,7 +55,7 @@ Phew, that was quite complicated! Well done if you got that first time. If not, 
 
 There's one final confusing thing we should cover before we move on. Some of you might be thinking, "He told me that the syntax for calling methods was the object name, followed by a period, followed by the method name. But we're not using the Predef object name when we call println on it. Huh?" Well, Predef is a special object and doesn't play by the normal rules, so you can call any of the Predef methods without having to use the object name first. In other words, `println("Hello World!")` and `Predef.println("Hello World!")` are exactly equivalent.
 
-Oh, and I almost forgot! I said I'd explain what that `extends App` thing is. When you run a program, the computer needs to know where to start it from. You might have hundreds of files, loads of objects, thousands of methods, so how do you specify where the beginning is? Well, you're allowed to write `extends App` for just one of your objects in the whole program, and that signifies to the computer that it should start running the program from this object. There's actually one other way of specifying the start point of your program, and that's to write a method called `main` in one of your objects. This is a special method that has a specific method definition, and can only appear once in your whole program. If we were to rewrite our `HelloWorld` object to use the`main` method, it would look like this:
+Oh, and I almost forgot! I said I'd explain what that `extends App` thing is. When you run a program, the computer needs to know where to start it from. You might have hundreds of files, loads of objects, thousands of methods, so how do you specify where the beginning is? Well, you're allowed to write `extends App` for just one of your objects in the whole program, and that signifies to the computer that it should start running the program from this object. There's actually one other way of specifying the start point of your program, and that's to write a method called `main` in one of your objects. This is a special method that has a specific method definition, and can only appear once in your whole program. If we were to rewrite our `HelloWorld` object to use the `main` method, it would look like this:
 
 ```
 object HelloWorld {
@@ -100,13 +100,13 @@ class IanSpec extends FlatSpec with Matchers {
 }
 ```
 
-I'm going to walk through what's happening here, but to fully understand it you'll need concepts that we're not going to cover until later, so it really doesn't matter if you don't get it. You can treat it like magic for now. The first line is telling the computer that we'll be using stuff from Scalatest in this file. We're then creating a class called IanSpec. We'll learn a lot more about classes very soon, but at the moment you can think of them as similar to objects. I know I'm going to be creating an object called "Ian", and this file is all about testing that Ian object, so I'm going to follow the FlatSpec convention of naming the class with the name of the thing I want it to test followed by the word "Spec". The `extends FlatSpec with Matchers` is telling the computer that we're going to be using some specific stuff from Scalatest inside this class. There's an opening curly brace at the end of the class definition line, and a matching closing curly brace at the end of the file. Everything between these is the body of the class, where the tests live.
+I'm going to walk through what's happening here, but to fully understand it you'll need concepts that we're not going to cover until later, so don't worry if you don't fully get it. You can treat it like magic for now. The first line is telling the computer that we'll be using stuff from Scalatest in this file. We're then creating a class called IanSpec. We'll learn a lot more about classes very soon, but at the moment you can think of them as similar to objects. I know I'm going to be creating an object called "Ian", and this file is all about testing that Ian object, so I'm going to follow the FlatSpec convention of naming the class with the name of the thing I want it to test followed by the word "Spec". The `extends FlatSpec with Matchers` is telling the computer that we're going to be using some specific stuff from Scalatest inside this class. There's an opening curly brace at the end of the class definition line, and a matching closing curly brace at the end of the file. Everything between these is the body of the class, where the tests live.
 
 The tests have their own special language, which isn't the standard Scala syntax you'll use in your actual program. The structure of the test is: string describing what you're testing - the word **should** - string describing what the behaviour you're testing should be - the word **in** - then the test body between curly braces. So you should be able to tell that this test is about making sure that the `sayHello` method of the `Ian` object will return the string "Hello, I'm Ian".
 
-In the test body, we start by calling the method we want to test. Remember the syntax for calling methods on objects? It's object name, followed by a period, followed by the method name with parenthesis straight after. Previously we saw this with `Console.println(x)`, and here we're calling `Ian.sayHello()`. I don't need to pass any parameters into this method, as it wouldn't do anything with them, so the parentheses are empty. The `shouldBe` compares what's on the left of it after the method call to what's on the right of it. If they match up then the test passes. If they're different the test will fail.
+In the test body, we start by calling the method we want to test. Remember the syntax for calling methods on objects? It's object name, followed by a period, followed by the method name with parenthesis straight after. Previously we saw this with `Console.println(x)`, and here we're calling `Ian.sayHello()`. I don't need to pass any parameters into this method, as it wouldn't do anything with them, so the parentheses are empty. The `shouldBe` compares the result of the method call on the left of it to what's on the right of it. If they match up then the test passes. If they're different the test will fail.
 
-You should be getting some red test in IntelliJ, signifying that something's wrong. It probably looks something like this:
+You should be getting some red text in IntelliJ, signifying that something's wrong. It probably looks something like this:
 
 ![Errors](../pictures/Red1.PNG)
 
@@ -114,7 +114,7 @@ That's because we haven't created an object called Ian yet, so IntelliJ sees tha
 
 ![](../pictures/CreateObject.PNG)
 
-It asks you where you want to put the object, so select **New File**. Unfortunatey it's not clever enough to put it in the `main/scala' folder, so look in the project view and you'll see your new file in the `test/scala` folder. Just drag it up into the `main/scala` folder, and hit **Refactor** in the box that pops up. Go back to the test file, and you'll see that `Ian` looks ok now, but `sayHello` is now red.
+It asks you where you want to put the object, so select **New File**. Unfortunately it's not clever enough to put it in the `main/scala` folder, so look in the project view and you'll see your new file in the `test/scala` folder. Just drag it up into the `main/scala` folder, and hit **Refactor** in the box that pops up. Go back to the test file, and you'll see that `Ian` looks ok now, but `sayHello` is now red.
 
 ![](../pictures/Red2.PNG)
 
@@ -154,6 +154,12 @@ Let's fix our code so our test can pass. Go back to the Ian object, and change "
 
 Now we can be sure that the `Ian.sayHello` method will always return "Hello, I'm Ian", and if you accidentally change it while you're coding you'll find out about it as soon as you run your tests. Result!
 
-The last thing we're going to do in this chapter is use our new object and method from our actual program rather than from the test. I'll leave it to you as an exercise, but try to get your HelloWorld object to print "Hello, I'm Ian" to the terminal by calling the `sayHello` method on the `Ian` object.
+### Practice
+
+Here are a few challenges to help you practice what you've learnt so far.
+
+1. Add some behaviour to the `Ian` object to allow it to say goodbye. Start by writing a test for the behaviour, then write the code to make the test pass. Your test can go in the `IanSpec` class body, below the existing test.
+2. Add a method called `echo` to the `Ian` object, which takes a string as a method parameter, and just returns the string when the method is called. Don't forget to write a test first.
+3. Use the `Ian` object in our actual `HelloWorld` program, rather than just using it from the tests. Try to get the `HelloWorld` object to print "Hello, I'm Ian" to the terminal instead of "Hello World!"
 
 [Next chapter](Section05.md)

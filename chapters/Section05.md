@@ -12,7 +12,7 @@ class IanSpec extends FlatSpec with Matchers {
     Ian.sayHello() shouldBe "Hello, I'm Ian"
   }
 
-  "SayHelloTo(name)" should "return 'Hello (name), I'm Ian'" in {
+  "SayHelloTo(name)" should "return 'Hello name, I'm Ian'" in {
     Ian.sayHelloTo("Snoopy") shouldBe "Hello Snoopy, I'm Ian"
     Ian.sayHelloTo("Linus") shouldBe "Hello Linus, I'm Ian"
   }
@@ -24,13 +24,13 @@ You should have almost all the tools you need to write this on your own now. Rem
 You might need a small hand with the method body. We're going to be referring to the method parameter when we're inside the body, inserting its value into the return string. There are multiple ways of manipulating strings. If you want to create a new string by joining two strings together you can use the `+` operator between them.
 
 ```
-def joinStrings() = "Hello " + "Snoopy"
+def joinStrings(): String = "Hello " + "Snoopy"
 ```
 
 If we call `joinStrings()` it will return a single string with the value "Hello Snoopy".
 
 ```
-def joinStringsWithParameter(name: String) = "Hello " + name
+def joinStringsWithParameter(name: String): String = "Hello " + name
 ```
 
 If we call `joinStringsWithParameter("Snoopy")` it will return a single string with the value "Hello Snoopy". But this method is now dynamic, and can change what it returns depending on what is given to it. We can call `joinStringsWithParameter("James Bond")` and we'll get back a single string with the value "Hello James Bond".
@@ -38,7 +38,7 @@ If we call `joinStringsWithParameter("Snoopy")` it will return a single string w
 The method we're writing needs to insert a parameter value between the strings "Hello " and ", I'm Ian". We can use the `+` operator to join as many strings as we like, so something like `"Hello " + name + ", I'm Ian"` works perfectly well, but isn't that readable. A nicer way of doing this is called *string interpolation*, which means writing out the finished string as you'd like it to look, but referring to any parameters directly inside the string. The computer will see the string interpolation pattern and replace the parameter names with their values. The syntax for this is to write a small `s` immediately before the opening quotation mark for the string, and then prefix any parameter names within the string with a `$` sign. An example should help.
 
 ```
-def interpolateStrings(name: String) = s"Hello $name, I'm Ian"
+def interpolateStrings(name: String): String = s"Hello $name, I'm Ian"
 ```
 
 Not the most beautiful thing ever, but definitely more readable than using lots of `+`. (Joining strings with `+` is called *concatenation*, by the way).
@@ -177,7 +177,7 @@ You can see the keyword `val`, which means we're creating an immutable attribute
 val colour = "white"
 ```
 
-Go back to your test file and run the test, either by right clicking on the file name and selecting the option to run the test, or clicking somewhere in the test body and pressing **Ctrl + Shift + F10**. With a bit of luck you've got a passing test! Try changing either the expected value in the test, or the actual value in the object to make the test fail. Cool, now put it back so it's passing again. You've just created your first attribute, and tested that you can get it's value out of the object!
+Go back to your test file and run the test, either by right clicking on the file name and selecting the option to run the test, or clicking somewhere in the test body and pressing **Ctrl + Shift + F10**. With a bit of luck you've got a passing test! Try changing either the expected value in the test, or the actual value in the object to make the test fail. Cool, now put it back so it's passing again. You've just created your first attribute, and tested that you can get its value out of the object!
 
 Now we're going to do something more complicated, but satisfying. I'd say this is going to be our first *real* coding that does something interesting! We're going to create a mutable attribute to represent the state of how much milk the carton currently holds. Then we're going to create methods that can either add or remove specified amounts of milk, and check that the state of the carton gets updated properly to reflect the new amount of milk it contains. How exciting!
 
@@ -216,7 +216,7 @@ object MilkCarton {
 }
 ```
 
-Run your test and make sure that it passes, then we'll come back to this. It looks a little bit confusing, doesn't it. The first thing to say is that `=` doesn't mean equals in the way you learnt it at school. In maths we'd say `1 + 1 = 2`, which is testing that the left side is the same as the right side. In Scala (and many other programming languages) the `=` sign is used for assignment. It means *assign the value on the right hand side to the variable or method on the left hand side*. So `var millilitresOfMilk = 0` means assign the value 0 to the variable called millilitresOfMilk. In our `addMillilitresOfMilk` method, the first `=` means assign everything on the right hand side to the body of the method. It might look a little clearer if I rewrite it with the optional braces around the method body:
+Run your test and make sure that it passes, then we'll come back to this. It looks a little bit confusing, doesn't it. The first thing to say is that `=` doesn't mean equals in the way you learnt it at school. In maths we'd say `1 + 1 = 2`, which is asserting that the left side is the same as the right side. In Scala (and many other programming languages) the `=` sign is used for assignment. It means *assign the value on the right hand side to the variable or method on the left hand side*. So `var millilitresOfMilk = 0` means assign the value 0 to the variable called millilitresOfMilk. In our `addMillilitresOfMilk` method, the first `=` means assign everything on the right hand side to the body of the method. It might look a little clearer if I rewrite it with the optional braces around the method body:
 
 ```
 def addMillilitresOfMilk(mls: Int) = {
@@ -246,7 +246,7 @@ def addMillilitresOfMilk(mls: Int) = {
 }
 ```
 
-and say we call the method with a parameter of 10, the computer will evaluate the expression on the right hand side of the `=` by finding the current value of the millilitresOfMilk variable (0), finding the value of the `mls` parameter (10), adding them together to get 10, and assigning that result back to the millilitresOfMilk attribute. If we then called the method again with a value of 10, the current value of the millilitresOfMilk. To illustrate this, let's update our test to show it in action:
+and say we call the method with a parameter of 10, the computer will evaluate the expression on the right hand side of the `=` by finding the current value of the millilitresOfMilk variable (0), finding the value of the `mls` parameter (10), adding them together to get 10, and assigning that result back to the millilitresOfMilk attribute. If we then called the method again with a value of 10, the current value of the millilitresOfMilk would be 10, so the result of the addition would be 20, which we would assign back to the millilitresOfMilk variable. To illustrate this, let's update our test to show it in action:
 
 ```
 "Adding milk" should "update the state of the MilkCarton" in {
@@ -365,6 +365,8 @@ Try adding a method to remove milk from the carton. You might want to call it `p
 
 And that's it for this chapter! Well done, you've made great progress in learning the building blocks of Object Oriented Programming. You know how to create objects, how to give them attributes that may or may not be allowed to change, and how to use methods to describe the behaviour of and change the state of objects. This is exactly how a computer game might track and update the state of characters. You'd probably have an object representing the player's character. Some of the player's attributes might not change, such as its walking speed, or the image used to display it, so these could be modelled using `vals`. Others will need to change throughout the course of the game, such as the amount of health it has, or the number of coins it has picked up, so these would be `vars`. And the state of the player would be updated by calling methods on the player object. For instance, you can imagine a `def takeDamage(x: Int)` method that would update the player's health.  There are a few more concepts to learn before you can make that big budget role playing game, but you're well on your way!
 
-Try writing a `Player` object with some health that you can take from and add to using methods.
+### Practice
+
+Try writing a `Player` object with a health attribute. Add a method called `heal` which will take an Int and add this to the health, and another method called `takeDamage` which will also take an Int but decrease the amount of health. Write a test class first to describe the behaviour and make sure it works as you expect.
 
 [Next chapter](Section06.md)
